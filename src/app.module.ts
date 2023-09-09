@@ -8,6 +8,7 @@ import { OrderDetailModule } from './order-detail/order-detail.module';
 import { CartModule } from './cart/cart.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -18,14 +19,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'Jost3476',
       database: 'dbhtlibrary',
-      entities: [],
-      
-    }), UserModule, BookModule, OrderModule, OrderDetailModule, CartModule, CartItemModule],
+      entities: [User],
+      synchronize: true,
+    }),
+    UserModule,
+    BookModule,
+    OrderModule,
+    OrderDetailModule,
+    CartModule,
+    CartItemModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
-
-
-
-

@@ -1,0 +1,99 @@
+<%- include('../partions/header',{title:'harktech - Login'} )%>
+<br><br>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container-fluid">
+        <div class="text-center col-lg-4">
+            <a href="../../" class="text-decoration-none">
+                <span class="h2 text-uppercase text-primary bg-dark px-2">Harktech</span>
+                <span class="h2 text-uppercase text-dark bg-primary px-2 ml-n1">Librairie</span>
+            </a>
+        </div>
+
+        <form class="border p-4 rounded shadow-lg" onsubmit="return validateForm();" method="POST">
+            <h2 class="text-center mb-4">Inscription</h2>
+
+            <div class="mb-3">
+                <label for="firstname" class="form-label"><i class="fa fa-user"></i> Prénom</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Prénom" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastname" class="form-label"><i class="fa fa-user"></i> Nom</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label"><i class="fa fa-user"></i> Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label"><i class="fa fa-envelope"></i> Adresse e-mail</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Adresse e-mail" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label"><i class="fa fa-lock"></i> Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+            </div>            
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-person"></i> S'inscrire
+                </button>
+                <button type="reset" class="btn btn-danger">
+                    <i class="bi bi-person"></i> Annuler
+                </button>
+            </div>
+
+            <div id="login-box-footer" style="padding: 10px 20px; padding-bottom: 23px; padding-top: 18px;">
+                <p style="margin-bottom: 0px;">Vous avez déjà un compte?<a id="login-link" href="Login"> Se connecter!</a></p>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    // Fonction pour valider le formulaire
+    function validateForm() {
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+
+        // Vérification du prénom
+        if (firstname.length < 3) {
+            alert("Le prénom doit avoir au moins 3 caractères.");
+            return false;
+        }
+
+        // Vérification du nom
+        if (lastname.length < 3) {
+            alert("Le nom doit avoir au moins 3 caractères.");
+            return false;
+        }
+
+        // Vérification du nom d'utilisateur avec une lettre majuscule
+        if (!/[A-Z]/.test(username)) {
+            alert("Le nom d'utilisateur doit contenir au moins une lettre majuscule.");
+            return false;
+        }
+
+        // Vérification du mot de passe (au moins 8 caractères)
+        if (password.length < 8) {
+            alert("Le mot de passe doit avoir au moins 8 caractères.");
+            return false;
+        }
+
+        
+        // Si toutes les validations réussissent, le formulaire est soumis
+        return true;
+    }
+    
+</script>
+
+
+
+    <%- include('../partions/footer') %>

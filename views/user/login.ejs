@@ -1,0 +1,62 @@
+<%- include('../partions/header',{title:'harktech - Login'} )%>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="container-fluid">
+            <div class="text-center col-lg-4">
+                <a href="../../" class="text-decoration-none">
+                    <span class="h2 text-uppercase text-primary bg-dark px-2">Harktech</span>
+                    <span class="h2 text-uppercase text-dark bg-primary px-2 ml-n1">Librairie</span>
+                </a>
+            </div>
+               
+        <form class="border p-4 rounded shadow-lg">
+            <h2 class="text-center mb-4">Connexion</h2>
+            <div class="mb-3">
+                <label for="username" class="form-label"><i class="fa fa-user"></i> Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" name="username"  placeholder="Username" >
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label"><i class="fa fa-lock"></i> Mot de passe</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mb-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-person"></i> Se connecter
+                </button>
+                <button type="reset" class="btn btn-danger">
+                    <i class="bi bi-person"></i> Anuller
+                </button>
+            </div>
+            <div id="login-box-footer" style="padding: 10px 20px;padding-bottom: 23px;padding-top: 18px;">
+                <p style="margin-bottom: 0px;">Vous n'avez pas de compte?<a id="register-link" href="sign"> S'inscrire!</a></p>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const passwordField = document.getElementById("password");
+            const toggleButton = document.getElementById("togglePassword");
+    
+            toggleButton.addEventListener("click", function() {
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleButton.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                } else {
+                    passwordField.type = "password";
+                    toggleButton.innerHTML = '<i class="fa fa-eye"></i>';
+                }
+            });
+        });
+    </script>
+    
+
+
+
+    <%- include('../partions/footer') %>
