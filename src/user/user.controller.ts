@@ -7,13 +7,15 @@ import {
   Param,
   Delete,
   Render,
-  Res,
-  Req,
+  Redirect,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
+
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Response, Request } from 'express';
+import { CreateUserDto } from './dto/create-user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('user')
 export class UserController {
@@ -32,27 +34,16 @@ export class UserController {
   admin() {}
 
   @Post('/sign')
-  create(@Body() body: any) {
-    this.userService.create(body);
+  @Redirect('/user/login')
+  async create(@Body() body: CreateUserDto) {
+    return await this.userService.create(body);
   }
 
-  // @Post('/sign')
-  // async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
-  //   // Appelez le service pour créer un nouvel utilisateur en utilisant les données du formulaire
-  //   const user = await this.userService.create(createUserDto);
-
-  //   // Redirigez l'utilisateur vers une autre page
-  //   res.setHeader('Location', 'login'); // Spécifiez l'URL de redirection
-  //   res.statusCode = 302; // Code de redirection HTTP
-
-  //   // Rendez une vue EJS différente après la redirection (facultatif)
-  //   res.render('login', { user }); // Utilisez la vue EJS 'autre-vue' avec des données (si nécessaire)
-
-  //   // Si vous ne souhaitez pas rendre de vue après la redirection, vous pouvez simplement utiliser :
-  //   // res.end();
-
-  //   // Note : La redirection se produira lorsque la réponse sera renvoyée au client.
-  // }
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('/login')
+  async postLogin(@Body() body: LoginDto) {
+    return await this.userService.postLogin(body);
+  }
 
   @Get()
   findAll() {
