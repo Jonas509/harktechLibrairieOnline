@@ -1,14 +1,17 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { BookModule } from './book/book.module';
-import { OrderModule } from './order/order.module';
-import { OrderDetailModule } from './order-detail/order-detail.module';
-import { CartModule } from './cart/cart.module';
-import { CartItemModule } from './cart-item/cart-item.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entity';
+import { LivresModule } from './livres/livres.module';
+import { UtilisateurModule } from './utilisateur/utilisateur.module';
+import { PaniersModule } from './paniers/paniers.module';
+import { LivrePanierModule } from './livre-panier/livre-panier.module';
+import { CommandeModule } from './commande/commande.module';
+import { LivreCommandeModule } from './livre-commande/livre-commande.module';
+
+import { JwtModule } from '@nestjs/jwt';
+import { UtilisateurService } from './utilisateur/utilisateur.service';
+import { UserRole } from './utility/common/user-roles.enum';
 
 @Module({
   imports: [
@@ -17,19 +20,49 @@ import { User } from './user/entities/user.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'Jost3476',
-      database: 'dbhtlibrary',
-      entities: [User],
+      password: '',
+      database: 'librairie2',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
+      autoLoadEntities: true,
     }),
-    UserModule,
-    BookModule,
-    OrderModule,
-    OrderDetailModule,
-    CartModule,
-    CartItemModule,
+
+    JwtModule.register({
+      secret: 'your-secret-key', // Remplacez par votre clé secrète
+      signOptions: { expiresIn: '1h' }, // Facultatif : options de signature JWT
+    }),
+    LivresModule,
+    UtilisateurModule,
+    PaniersModule,
+    LivrePanierModule,
+    CommandeModule,
+    LivreCommandeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private readonly utilisateurService: UtilisateurService) {}
+  async onModuleInit() {
+    try {
+      const utilisateur = await this.utilisateurService.createDefaultUser();
+      //console.log('Utilisateur administrateur créé avec succès.');
+      // Assurez-vous que cet utilisateur a le rôle "administrateur"
+      utilisateur.roles = [UserRole.Admin];
+      // Sauvegardez l'utilisateur mis à jour
+      await this.utilisateurService.update(utilisateur.id, utilisateur);
+      await this.utilisateurService.updateUserRoles(utilisateur.id, [
+        UserRole.Admin,
+      ]);
+
+      //console.log(utilisateur);
+      return { message: 'Utilisateur administrateur créé avec succès' };
+    } catch (error) {
+      return {
+        message:
+          "Une erreur s'est produite lors de la création de l'utilisateur administrateur",
+        error,
+      };
+    }
+  }
+}

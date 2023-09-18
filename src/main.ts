@@ -1,19 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
-import { ValidationPipe } from '@nestjs/common'; // Importez la ValidationPipe
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setViewEngine('ejs');
+  const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder()
+    .setTitle('Librairie HarkTech')
+    .setDescription(
+      'Projet systeme repatis realise parun groupe d`etudiant en L4',
+    )
+    .setVersion('1.0')
+    .addTag('cats')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
-  // Ajoutez la ValidationPipe pour activer la validation globale
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(3000);
 }
-
 bootstrap();
