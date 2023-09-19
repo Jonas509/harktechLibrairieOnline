@@ -4,13 +4,17 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   getHello(): string {
     const groupName = 'HarkTech';
-    const projectParticipants = [
+    const projectParticipant = [
       'ST VIL JONAS',
-      'Participant 2',
-      'Participant 3',
+      'PIERRE MAX-RICO',
+      'EUGENNE JENNIE',
+      'PAULMAR LOURDELIN',
+      'NAPOLEON CHRISLY',
+      'DORIVAL CHEDNER',
+      'ADAMS ROTCHILD',
     ];
 
-    return `Welcome to the NestJS API of ${groupName} project! Participants: ${projectParticipants.join(
+    return `Welcome to the NestJS API of ${groupName} project! Participants: ${projectParticipant.join(
       ', ',
     )}.`;
   }

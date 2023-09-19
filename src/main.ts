@@ -11,7 +11,7 @@ async function bootstrap() {
       'Projet systeme repatis realise parun groupe d`etudiant en L4',
     )
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('HarkTech')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
