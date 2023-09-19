@@ -13,7 +13,7 @@ import {
 import { UtilisateurService } from './utilisateur.service';
 import { CreateUtilisateurDto } from './dto/create-utilisateur.dto';
 import { UpdateUtilisateurDto } from './dto/update-utilisateur.dto';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SignInUserDto } from './dto/user-signin.dto';
 import { Utilisateur } from './entities/utilisateur.entity';
 import { AuthorizeRoles } from 'src/utility/decorator/autorize-roles.decorator';
@@ -22,7 +22,9 @@ import { AuthentificationGuard } from 'src/utility/gouards/authentification.guar
 import { AuthorizeGuard } from 'src/utility/gouards/authorization.gourds';
 import { CurrentUser } from 'src/utility/decorator/current-users.decorator';
 
+
 @Controller('utilisateur')
+@ApiTags('Utilisateurs')
 export class UtilisateurController {
   constructor(private readonly utilisateurService: UtilisateurService) {}
 
