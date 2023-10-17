@@ -17,11 +17,13 @@ import { UserRole } from './utility/common/user-roles.enum';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'bxw5otlshrpdbuhj2kla-mysql.services.clever-cloud.com',
       port: 3306,
-      username: 'root',
-      password: 'Jonas509@',
-      database: 'librairie2',
+      username: 'uyg1nu5pnhpbne0l',
+      password: 'eUsYQqEmOOuXATXAlTzV',
+      database: 'bxw5otlshrpdbuhj2kla',
+      url: 'mysql://uyg1nu5pnhpbne0l:eUsYQqEmOOuXATXAlTzV@bxw5otlshrpdbuhj2kla-mysql.services.clever-cloud.com:3306/bxw5otlshrpdbuhj2kla',
+      
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       autoLoadEntities: true,
