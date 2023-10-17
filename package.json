@@ -1,8 +1,8 @@
 {
   "name": "librairie_en_ligne",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Api librairie_en_ligne plugin",
+  "author": "Harktech",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
