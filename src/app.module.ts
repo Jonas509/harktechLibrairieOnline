@@ -17,15 +17,14 @@ import { UserRole } from './utility/common/user-roles.enum';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'bxw5otlshrpdbuhj2kla-mysql.services.clever-cloud.com',
-      port: 3306,
-      username: 'uyg1nu5pnhpbne0l',
-      password: 'eUsYQqEmOOuXATXAlTzV',
-      database: 'bxw5otlshrpdbuhj2kla',
+      host: process.env.MYSQL_ADDON_HOST,
+      port: parseInt(process.env.MYSQL_ADDON_PORT, 10),
+      username: process.env.MYSQL_ADDON_USER,
+      password: process.env.MYSQL_ADDON_PASSWORD,
+      database: process.env.MYSQL_ADDON_DB,
       url: 'mysql://uyg1nu5pnhpbne0l:eUsYQqEmOOuXATXAlTzV@bxw5otlshrpdbuhj2kla-mysql.services.clever-cloud.com:3306/bxw5otlshrpdbuhj2kla',
-      
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: true, // À des fins de développement uniquement
       autoLoadEntities: true,
     }),
 
